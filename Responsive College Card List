@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>College Recommendations</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Inter", system-ui, -apple-system, sans-serif;
+      }
+
+      body {
+        background-color: #f5f5f5;
+        color: #202020;
+        line-height: 1.6;
+      }
+
+      table {
+        border-collapse: collapse;
+        width: 96%;
+        max-width: 800px;
+        margin: 0 auto;
+        background: white;
+      }
+
+      .header-table {
+        background: linear-gradient(
+          90deg,
+          rgba(214, 224, 255, 1) 0%,
+          rgba(250, 250, 250, 1) 52%,
+          rgba(250, 250, 250, 1) 100%
+        );
+      }
+
+      .header-logo {
+        width: 118px;
+        height: auto;
+        padding: 16px;
+      }
+
+      .profile-link {
+        text-align: right;
+        padding: 16px;
+      }
+
+      .profile-link a {
+        font-size: 12px;
+        text-decoration: none;
+        color: #333;
+      }
+
+      .greeting-cell {
+        padding: 20px 16px;
+        font-size: 16px;
+      }
+
+      .intro-cell {
+        padding: 0 16px 20px;
+        font-size: 14px;
+        color: #404040;
+      }
+
+      .section-header-cell {
+        padding: 24px 16px;
+      }
+
+      .section-header-cell img {
+        width: 40px;
+        height: 40px;
+        vertical-align: middle;
+      }
+
+      .section-title {
+        font-size: 20px;
+        font-weight: 600;
+        color: #202020;
+        margin-left: 12px;
+        vertical-align: middle;
+      }
+
+      .college-card {
+        background: white;
+        border: 1px solid #e5e7eb;
+        margin: 0 16px 20px;
+      }
+
+      .college-logo-cell {
+        width: 80px;
+        padding: 16px;
+        vertical-align: top;
+      }
+
+      .college-logo {
+        width: 60px;
+        height: 60px;
+        border-radius: 12px;
+        padding: 4px;
+        background: white;
+        box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.1),
+          0 4px 12px rgba(34, 197, 94, 0.08);
+      }
+
+      .college-info-cell {
+        padding: 16px 16px 16px 0;
+        vertical-align: top;
+      }
+
+      .college-name {
+        font-size: 1.1rem;
+        font-weight: 500;
+        color: #1f2937;
+        margin-bottom: 8px;
+      }
+
+      .meta-info td {
+        padding: 0 12px 8px 0;
+      }
+
+      .nirf-rank {
+        color: #22c55e;
+        font-weight: 500;
+      }
+
+      .star {
+        color: #fbbf24;
+      }
+
+      .established {
+        color: #6b7280;
+      }
+
+      .info-label {
+        color: #1f2937;
+        font-weight: 500;
+        padding-right: 12px;
+        white-space: nowrap;
+      }
+
+      .actions-row td {
+        padding: 16px;
+        border-top: 1px solid #e5e7eb;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 8px 24px;
+        border-radius: 4px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        cursor: pointer;
+        text-decoration: none;
+        text-align: center;
+        margin: 0 8px;
+      }
+
+      .btn-primary {
+        background: #22c55e;
+        color: white;
+        border: none;
+        text-decoration: none;
+      }
+
+      .btn-outline {
+        background: white;
+        color: #22c55e;
+        border: 1px solid #22c55e;
+      }
+
+      .btn-text {
+        background: #f8f9fa;
+        color: #1f2937;
+        border: 1px solid;
+      }
+
+      .consultation-table {
+        background: #f8f9fa;
+        border: 1px solid #e9ecef;
+        margin: 30px auto;
+        max-width: 768px;
+      }
+
+      .consultation-cell {
+        padding: 24px;
+        text-align: center;
+      }
+
+      .consultation-cell h3 {
+        font-size: 16px;
+        margin-bottom: 12px;
+        color: #2d2d2d;
+      }
+
+      .consultation-cell p {
+        font-size: 14px;
+        margin-bottom: 16px;
+      }
+
+      .consultation-cell ul {
+        text-align: left;
+        margin-bottom: 20px;
+        padding-left: 24px;
+        color: #555;
+      }
+
+      .consultation-cell li {
+        margin-bottom: 8px;
+        font-size: 14px;
+      }
+
+      .btn-consultation {
+        display: inline-block;
+        padding: 12px 24px;
+        background-color: #28a745;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        font-size: 14px;
+        margin-bottom: 12px;
+      }
+
+      .consultation-footer {
+        font-size: 12px;
+        color: #666;
+      }
+
+      @media screen and (max-width: 768px) {
+        table {
+          width: 100% !important;
+        }
+
+        .college-logo-cell {
+          display: block;
+          width: 100%;
+          text-align: center;
+        }
+
+        .college-info-cell {
+          display: block;
+          padding: 0 16px 16px;
+          text-align: center;
+        }
+
+        .meta-info {
+          margin: 0 auto;
+        }
+
+        .meta-info td {
+          display: block;
+          text-align: center;
+          padding: 4px 0;
+        }
+
+        .actions-row td {
+          text-align: center;
+        }
+
+        .btn {
+          display: block;
+          margin: 8px 0;
+          width: 100%;
+        }
+        .texhight {
+          padding: 3%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <table class="header-table">
+      <tr>
+        <td class="header-logo">
+          <img
+            src="https://design.unipro.co.in/mailer/2024/collegedekho/virohan/1/images/logo.png"
+            alt="CollegeDekho Logo"
+          />
+        </td>
+        <td class="profile-link">
+          <a href="https://www.collegedekho.com/my-dashboard/profile"
+            >My Profile</a
+          >
+        </td>
+      </tr>
+    </table>
+
+    <table>
+      <tr>
+        <td class="greeting-cell">Dear Raj,</td>
+      </tr>
+      <tr>
+        <td class="intro-cell">
+          Based on your academic interests and preferences, we've found some
+          excellent colleges that could be perfect for your higher education
+          journey!
+        </td>
+      </tr>
+      <tr>
+        <td class="section-header-cell">
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/6421/6421923.png"
+            alt="Recommendations icon"
+          />
+          <span class="section-title">Recommended Colleges</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <table class="college-card" style="max-width: 768px; margin: auto">
+            <tr>
+              <td class="college-logo-cell">
+                <img
+                  src="https://media.collegedekho.com/media/img/institute/logo/Lovely_Professional_University_Seal.jpg"
+                  alt="Lovely Professional University"
+                  class="college-logo"
+                />
+              </td>
+              <td class="college-info-cell">
+                <h2 class="college-name">
+                  Lovely Professional University - Phagwara (Punjab)
+                </h2>
+                <table>
+                  <tr>
+                    <td class="texhight">
+                      <span class="nirf-rank">#98 NIRF</span>
+                    </td>
+                    <td class="texhight">
+                      <span class="star">★</span>
+                      <span>4.3</span>
+                    </td>
+                    <td class="texhight">
+                      <span class="established">Established: 2005</span>
+                    </td>
+                  </tr>
+                </table>
+                <table>
+                  <tr>
+                    <td
+                      valign="top"
+                      class="texhight"
+                      class="info-label texhight"
+                    >
+                      Accreditations:
+                    </td>
+                    <td class="texhight" style="margin-right: 1%">
+                      ACU,ACBSP,NAAC,UGC,IAU
+                    </td>
+                  </tr>
+                  <tr>
+                    <td valign="top" class="info-label texhight">
+                      Top Recruiters:
+                    </td>
+                    <td class="texhight" style="margin-right: 1%">
+                      Infosays, capgemini,BOSCH,Cognizant
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr class="actions-row">
+              <td colspan="2">
+                <a
+                  href="#"
+                  class="btn btn-primary"
+                  style="text-decoration: none; color: white"
+                  >Apply Now</a
+                >
+                <a
+                  href="#"
+                  class="btn btn-outline"
+                  style="text-decoration: none; color: #22c55e"
+                  >Brochure</a
+                >
+                <a href="#" style="text-decoration: none">
+                  <button class="btn btn-text" style="color: #666">
+                    Add Course
+                  </button>
+                </a>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td height="16"></td>
+      </tr>
+      <tr>
+        <td>
+          <table class="college-card" style="max-width: 768px; margin: auto">
+            <tr>
+              <td class="college-logo-cell">
+                <img
+                  src="https://media.collegedekho.com/media/img/institute/logo/WhatsApp_Image_2023-03-06_at_11.16.15_AM_MFoyM10.jpeg"
+                  alt="Parul University
+                            "
+                  class="college-logo"
+                />
+              </td>
+              <td class="college-info-cell">
+                <h2 class="college-name">
+                  Parul University - Vadodara Gujarat
+                </h2>
+                <table>
+                  <tr>
+                    <td class="texhight">
+                      <span class="star">★</span>
+                      <span>4.2</span>
+                    </td>
+                    <td class="texhight">
+                      <span class="established">Established: 2009</span>
+                    </td>
+                  </tr>
+                </table>
+                <table>
+                  <tr>
+                    <td
+                      valign="top"
+                      class="texhight"
+                      class="info-label texhight"
+                    >
+                      Accreditations:
+                    </td>
+                    <td class="texhight" style="margin-right: 1%">
+                      NAAC,UGC,NABL,NABH,AICTE
+                    </td>
+                  </tr>
+                  <tr>
+                    <td valign="top" class="info-label texhight">
+                      Top Recruiters:
+                    </td>
+                    <td class="texhight" style="margin-right: 1%">
+                      ITC, Deloitte, Cognizant, Genpact, Amazon, Infosys, TCS,
+                      IBM, Microsoft, Accenture
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr class="actions-row">
+              <td colspan="2">
+                <a
+                  href="#"
+                  class="btn btn-primary"
+                  style="text-decoration: none; color: white"
+                  >Apply Now</a
+                >
+                <a
+                  href="#"
+                  class="btn btn-outline"
+                  style="text-decoration: none; color: #22c55e"
+                  >Brochure</a
+                >
+                <a href="#" style="text-decoration: none">
+                  <button class="btn btn-text" style="color: #666">
+                    Add Course
+                  </button>
+                </a>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td height="16"></td>
+      </tr>
+      <tr>
+        <td>
+          <table class="college-card" style="max-width: 768px; margin: auto">
+            <tr>
+              <td class="college-logo-cell">
+                <img
+                  src="https://media.collegedekho.com/media/img/institute/logo/CU_LOGO_PNG-01_1_104x104.png"
+                  alt="Chandigarh University
+                            "
+                  class="college-logo"
+                />
+              </td>
+              <td class="college-info-cell">
+                <h2 class="college-name">
+                  Chandigarh University - Mohali, Punjab
+                </h2>
+                <table>
+                  <tr>
+                    <td class="texhight">
+                      <span class="nirf-rank">#32 NIRF</span>
+                    </td>
+
+                    <td class="texhight">
+                      <span class="star">★</span>
+                      <span>4.4</span>
+                    </td>
+                    <td class="texhight">
+                      <span class="established">Established: 2012</span>
+                    </td>
+                  </tr>
+                </table>
+                <table>
+                  <tr>
+                    <td
+                      valign="top"
+                      class="texhight"
+                      class="info-label texhight"
+                    >
+                      Accreditations:
+                    </td>
+                    <td
+                      class="texhight"
+                      style="margin-right: 1%; text-align: left"
+                    >
+                      NAAC,UGC,NBA,BCI,PCI,NCHMCT,ACU
+                    </td>
+                  </tr>
+                  <tr>
+                    <td valign="top" class="info-label texhight">
+                      Top Recruiters:
+                    </td>
+                    <td class="texhight" style="margin-right: 1%">
+                      IBM, Cognizant, Amazon, Dell, Godrej, Oracle, flipkart,
+                      Zomato, HP
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr class="actions-row">
+              <td colspan="2">
+                <a
+                  href="#"
+                  class="btn btn-primary"
+                  style="text-decoration: none; color: white"
+                  >Apply Now</a
+                >
+                <a
+                  href="#"
+                  class="btn btn-outline"
+                  style="text-decoration: none; color: #22c55e"
+                  >Brochure</a
+                >
+                <a href="#" style="text-decoration: none">
+                  <button class="btn btn-text" style="color: #666">
+                    Add Course
+                  </button>
+                </a>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td height="16"></td>
+      </tr>
+      <tr>
+        <td>
+          <table class="college-card" style="max-width: 768px; margin: auto">
+            <tr>
+              <td class="college-logo-cell">
+                <img
+                  src="https://media.collegedekho.com/media/img/institute/logo/Untitled-2_1_200x200.png"
+                  alt="Jagannath University Jaipur
+
+                            "
+                  class="college-logo"
+                />
+              </td>
+              <td class="college-info-cell">
+                <h2 class="college-name">
+                  Jagannath University Jaipur - Jaipur, Rajasthan
+                </h2>
+                <table>
+                  <tr>
+                    <td class="texhight">
+                      <span class="star">★</span>
+                      <span>4.3</span>
+                    </td>
+                    <td class="texhight">
+                      <span class="established">Established: 1999</span>
+                    </td>
+                  </tr>
+                </table>
+                <table>
+                  <tr>
+                    <td
+                      valign="top"
+                      class="texhight"
+                      class="info-label texhight"
+                    >
+                      Accreditations:
+                    </td>
+                    <td
+                      class="texhight"
+                      style="margin-right: 1%; text-align: left"
+                    >
+                      NAAC,DEB,UGC,BCI,NCTE,Council of Architecture (COA),ICAR
+                    </td>
+                  </tr>
+                  <tr>
+                    <td valign="top" class="info-label texhight">
+                      Top Recruiters:
+                    </td>
+                    <td class="texhight" style="margin-right: 1%">
+                      IndusInd Bank, Aditya Birla Group, Genpact, Convergys,
+                      IBM, JK CEMENT, iBall, Godrej
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr class="actions-row">
+              <td colspan="2">
+                <a
+                  href="#"
+                  class="btn btn-primary"
+                  style="text-decoration: none; color: white"
+                  >Apply Now</a
+                >
+                <a
+                  href="#"
+                  class="btn btn-outline"
+                  style="text-decoration: none; color: #22c55e"
+                  >Brochure</a
+                >
+                <a href="#" style="text-decoration: none">
+                  <button class="btn btn-text" style="color: #666">
+                    Add Course
+                  </button>
+                </a>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td style="height: 20px"></td>
+      </tr>
+    </table>
+
+    <table class="consultation-table">
+      <tr>
+        <td class="consultation-cell">
+          <h3>Book Your Admission Counseling Session 🎯</h3>
+          <h2>👋 Meet Your Counselor</h2>
+          <p><strong>Ms. Sarah Williams</strong></p>
+          <ul style="text-align: center">
+            <ol>
+              ⭐ 4.9/5 | 📚 500+ Students Guided
+            </ol>
+          </ul>
+          <a
+            href="#"
+            class="btn-consultation"
+            style="text-decoration: none; color: white"
+            >Schedule Free 15-min Call</a
+          >
+          <p class="consultation-footer">
+            Available Monday-Friday, 9 AM - 5 PM EST • No cost or obligation
+          </p>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
