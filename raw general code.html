@@ -8,3 +8,16 @@
   lead","test","bank","admin","abc","na","null","none","user","sample","123","xyz"] else
   user["system"]["first_name"]|title }},
 </p>
+
+ <!-- Main Condation with Profile & College Details Start
+A shortlisted college exists, that college ID exists in the catalog, That the catalog entry has an institute name
+  -->
+       <p> {% if
+        event["custom"]["lms_recommendation_generated"]["custom"]["shortlisted_colleges"][0]
+        and
+        catalog["catalog_156"][event["custom"]["lms_recommendation_generated"]["custom"]["shortlisted_colleges"][0]]
+        and
+        catalog["catalog_156"][event["custom"]["lms_recommendation_generated"]["custom"]["shortlisted_colleges"][0]]["institute_name"]
+        %}
+
+</p>
