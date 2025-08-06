@@ -20,4 +20,11 @@ A shortlisted college exists, that college ID exists in the catalog, That the ca
         catalog["catalog_156"][event["custom"]["lms_recommendation_generated"]["custom"]["shortlisted_colleges"][0]]["institute_name"]
         %}
 
+<!-- Coustome verticle check -->
+
+         <p>{% if event["custom"]["lms_recommendation_generated"]["custom"]["LMS
+        vertical"] == "etp" and
+        catalog["catalog_156"][event["custom"]["lms_recommendation_generated"]["custom"]["shortlisted_colleges"][0]]["institute_name"]
+        %}</p>
+
 </p>
